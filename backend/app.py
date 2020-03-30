@@ -1,5 +1,5 @@
 # sasha 2019
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from mixes import Mix
 import redis
@@ -31,7 +31,7 @@ r = redis.from_url(os.environ.get("REDIS_URL"))
 @app.route('/')
 def index():
     """Returns react frontend"""
-    return 'hello world'
+    return render_template('index.html')
 
 
 @app.route('/download', methods=['POST'])
@@ -66,7 +66,6 @@ def get_status():
     try:
         p_data = r.get(str(job_id))
         data = pickle.loads(p_data)
-        print(data)
         return jsonify(data)
     except:
         return jsonify({'error': True,

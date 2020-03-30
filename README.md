@@ -9,12 +9,13 @@ Mixes is a tool that helps you backup your audio mixes in one place with a simpl
 In order to run the codebase, you will need to have `python3` and `redis-server` installed. Instructions assume that you have a virtual environment set up.
 ```bash
 # in one tab
+redis-server
+export REDIS_URL='redis://localhost:6379'
+
+# in another tab
 cd backend
 pip install -r requirements.txt
 python app.py
-
-# in another tab
-redis-server
 
 # and in another one
 python worker.py
@@ -24,7 +25,7 @@ Once you install the requirements and run the python app, you will be able to ac
 
 ## Development
 ### Backend
-To work with the python backend code, you will need to edit the `app.py` file which is located in `backend`. If you intend to deploy this somewhere, you should **deactivate the debug mode**.
+To work with the python backend code, you will need to edit files in the `backend` folder. If you intend to deploy this somewhere, you should **deactivate the debug mode**.
 
 ### Frontend
 To work with the frontend javascript code, you will need to go into the `frontend` folder and run `npm i` to install the dependencies first.
