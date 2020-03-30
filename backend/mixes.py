@@ -14,7 +14,7 @@ r = redis.from_url(os.environ.get("REDIS_URL"))
 mix_hook = None
 
 
-def redis_sync(data):
+def redis_sync(data: dict):
     """Checks if data is in redis, then syncs it"""
 
     # try go get the data out
@@ -34,7 +34,7 @@ def redis_sync(data):
         r.publish(f'job_{data["id"]}', p_data)
 
 
-def mix_hook(d):
+def mix_hook(d: dict):
     # compute percentage
     percentage = int((d['downloaded_bytes']/d['total_bytes'])*100)
 
@@ -69,7 +69,7 @@ class Mix(object):
     stages of its lifecycle, like downloading metadata, thumbnails and the mix
     itself"""
 
-    def __init__(self, data):
+    def __init__(self, data: dict):
         # generate job metadata
         print('[class] class initialized')
         if 'id' not in data:
@@ -87,7 +87,7 @@ class Mix(object):
         return self._data
 
     @data.setter
-    def data(self, val):
+    def data(self, val: dict):
         # set data
         redis_sync(self._data)
         self._data = val
@@ -137,7 +137,7 @@ class Mix(object):
         return self._data
 
 
-def process_mix(data):
+def process_mix(data: dict):
     """Processes an incoming request in the queue. First get the info about
     the mix we're about to download, and then actually download it.
 
